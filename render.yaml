@@ -1,0 +1,50 @@
+# Render Blueprint for EzTix Backend API + Socket.IO Server (TRD Section 5)
+# Supports long-lived WebSocket connections on Render Web Service (free plan)
+services:
+  - type: web
+    name: eztix-api
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter @eztix/shared build && pnpm --filter @eztix/api build
+    startCommand: pnpm --filter @eztix/api start:prod
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: WEB_ORIGIN
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_SOCKET_SECRET
+        generateValue: true
+      - key: PASS_SECRET
+        generateValue: true
+      - key: WEBHOOK_SECRET
+        generateValue: true
+      - key: TICKET_QR_SECRET
+        generateValue: true
+      - key: TURNSTILE_SECRET
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: SENTRY_DSN
+        sync: false

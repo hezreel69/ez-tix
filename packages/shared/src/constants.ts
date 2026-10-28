@@ -1,0 +1,100 @@
+/**
+ * Shared constants, validation limits, and platform defaults.
+ * Source of truth: EzTix BSD (Sections 3, 5, 13) and TRD (Section 12).
+ */
+
+export const CURRENCY_CODE = "MYR" as const;
+export const SEN_PER_MYR = 100 as const;
+export const BPS_DENOMINATOR = 10_000 as const;
+export const BPS_HALF_UP_OFFSET = 5_000 as const;
+
+export const MYT_TIMEZONE = "Asia/Kuala_Lumpur" as const;
+
+/**
+ * Unambiguous character set (no 0, O, 1, I, L) for human-readable order numbers and ticket codes.
+ * Source: BSD Section 3.2
+ */
+export const CODE_ALPHABET = "23456789ABCDEFGHJKMNPQRSTUVWXYZ" as const;
+export const ORDER_NUMBER_PREFIX = "EZ-" as const;
+export const ORDER_NUMBER_RANDOM_LENGTH = 8 as const;
+export const TICKET_CODE_LENGTH = 12 as const;
+
+/**
+ * Custom HTTP headers used in API requests.
+ * Source: TRD Section 12
+ */
+export const PURCHASE_PASS_HEADER = "x-purchase-pass" as const;
+
+/**
+ * Default platform settings matching `platform_settings` table defaults.
+ * Source: BSD Section 5.1 & 13
+ */
+export const PLATFORM_DEFAULTS = {
+  SERVICE_FEE_BPS: 0,
+  TAX_BPS: 0,
+  HOLD_DURATION_SECONDS: 480, // 8 minutes
+  PASS_DURATION_SECONDS: 600, // 10 minutes
+  MAX_SEATS_PER_ORDER: 6,
+  WAITING_ROOM_LEAD_MINUTES: 30,
+  ADMIT_BATCH_SIZE: 50,
+  ADMIT_INTERVAL_SECONDS: 5,
+  MAX_ACTIVE_PASSES: 200,
+  REFUND_RETURNS_SEATS: true,
+  RECONNECT_GRACE_SECONDS: 120, // 2 minutes (PRD QUE-08)
+  PAYMENT_HOLD_LIFT_MINUTES: 10, // BSD Section 9.6
+  PAYMENT_HOLD_MAX_MINUTES: 20, // BSD Section 9.6
+  DEFAULT_EVENT_DURATION_HOURS: 6, // BSD Section 8.1 fallback when ends_at is null
+} as const;
+
+/**
+ * Validation limits across the stack.
+ * Source: BSD Section 13
+ */
+export const VALIDATION_LIMITS = {
+  EMAIL_MAX_LENGTH: 254,
+  PASSWORD_MIN_LENGTH: 10,
+  PASSWORD_MAX_LENGTH: 128,
+  NAME_MIN_LENGTH: 1,
+  NAME_MAX_LENGTH: 100,
+  EVENT_TITLE_MIN_LENGTH: 3,
+  EVENT_TITLE_MAX_LENGTH: 120,
+  EVENT_DESCRIPTION_MAX_LENGTH: 5_000,
+  AGE_RULES_MAX_LENGTH: 1_000,
+  REFUND_POLICY_MAX_LENGTH: 1_000,
+  POSTER_MAX_BYTES: 8 * 1024 * 1024, // 8 MB
+  POSTER_MIN_WIDTH: 1200,
+  POSTER_MIN_HEIGHT: 1500,
+  TIERS_MIN_COUNT: 1,
+  TIERS_MAX_COUNT: 5,
+  TIER_NAME_MIN_LENGTH: 1,
+  TIER_NAME_MAX_LENGTH: 40,
+  TIER_PRICE_MIN_SEN: 0,
+  TIER_PRICE_MAX_SEN: 1_000_000, // RM 10,000
+  COLOUR_SLOT_MIN: 1,
+  COLOUR_SLOT_MAX: 5,
+  MAX_SEATS_PER_ORDER_MIN: 1,
+  MAX_SEATS_PER_ORDER_MAX: 10,
+  HOLD_DURATION_MIN_SECONDS: 180,
+  HOLD_DURATION_MAX_SECONDS: 900,
+  PASS_DURATION_MIN_SECONDS: 300,
+  PASS_DURATION_MAX_SECONDS: 1_800,
+  ADMIT_BATCH_SIZE_MIN: 1,
+  ADMIT_BATCH_SIZE_MAX: 500,
+  ADMIT_INTERVAL_MIN_SECONDS: 1,
+  ADMIT_INTERVAL_MAX_SECONDS: 60,
+  MAX_ACTIVE_PASSES_MIN: 10,
+  MAX_ACTIVE_PASSES_MAX: 2_000,
+  WAITING_ROOM_LEAD_MIN_MINUTES: 5,
+  WAITING_ROOM_LEAD_MAX_MINUTES: 240,
+  VENUE_MAX_RESERVED_SEATS: 5_000,
+  VENUE_MAX_GA_CAPACITY: 20_000,
+  VENUE_MAX_SECTIONS: 30,
+  VENUE_CURVATURE_MIN: 0,
+  VENUE_CURVATURE_MAX: 20,
+  FEE_AND_TAX_MIN_BPS: 0,
+  FEE_AND_TAX_MAX_BPS: 3_000,
+  SEARCH_TEXT_MAX_LENGTH: 100,
+  PAGINATION_LIMIT_MIN: 1,
+  PAGINATION_LIMIT_MAX: 100,
+  PAGINATION_LIMIT_DEFAULT: 20,
+} as const;
